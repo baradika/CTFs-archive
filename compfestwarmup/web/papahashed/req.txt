@@ -1,0 +1,6 @@
+POST http://ctf.compfest.id:7302/auth/login HTTP/1.1
+Host: ctf.compfest.id:7302
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 39
+
+email=admin%40ristek.com&password=test

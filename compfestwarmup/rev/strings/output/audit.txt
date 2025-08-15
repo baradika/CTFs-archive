@@ -1,0 +1,21 @@
+Foremost version 1.5.7 by Jesse Kornblum, Kris Kendall, and Nick Mikus
+Audit File
+
+Foremost started at Tue Aug 12 19:34:52 2025
+Invocation: foremost chall 
+Output directory: /home/b4r/ctf/compfestwarmup/rev/strings/output
+Configuration file: /etc/foremost.conf
+------------------------------------------------------------------
+File: chall
+Start: Tue Aug 12 19:34:53 2025
+Length: 1 MB (1968195 bytes)
+ 
+Num	 Name (bs=512)	       Size	 File Offset	 Comment 
+
+Finish: Tue Aug 12 19:34:53 2025
+
+0 FILES EXTRACTED
+	
+------------------------------------------------------------------
+
+Foremost finished at Tue Aug 12 19:34:53 2025

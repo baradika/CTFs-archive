@@ -1,0 +1,25 @@
+Foremost version 1.5.7 by Jesse Kornblum, Kris Kendall, and Nick Mikus
+Audit File
+
+Foremost started at Sun Aug 10 10:27:15 2025
+Invocation: foremost speed.jpg 
+Output directory: /home/b4r/ctf/compfestwarmup/foren/lariadatikus/output
+Configuration file: /etc/foremost.conf
+------------------------------------------------------------------
+File: speed.jpg
+Start: Sun Aug 10 10:27:15 2025
+Length: 204 KB (209567 bytes)
+ 
+Num	 Name (bs=512)	       Size	 File Offset	 Comment 
+
+0:	00000000.jpg 	      20 KB 	          0 	 
+1:	00000040.wav 	     184 KB 	      20919 	 
+Finish: Sun Aug 10 10:27:15 2025
+
+2 FILES EXTRACTED
+	
+jpg:= 1
+rif:= 1
+------------------------------------------------------------------
+
+Foremost finished at Sun Aug 10 10:27:15 2025
