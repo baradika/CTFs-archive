@@ -1,0 +1,109 @@
+#!/usr/bin/env python3
+import json
+import random
+from Crypto.Util.number import getPrime, bytes_to_long
+from math import gcd
+
+suit = ['Spades', 'Hearts', 'Diamonds', 'Clubs', "FLAG"]
+rank = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', "FLAG"]
+deck = []
+for i in range(13):
+    for j in range(4):
+        deck.append(i * 5 + j)
+for _ in range(4): deck.append(13 * 5 + 4) # just for you :)
+random.shuffle(deck)
+while True:
+    p = getPrime(256)
+    q = getPrime(256)
+    n = p * q
+    e = getPrime(12)
+    phi = (p - 1) * (q - 1)
+    if gcd(e, phi) != 1:
+        continue
+    d = pow(e, -1, phi)
+    break
+
+flag = open("flag.txt", "r").read().strip()
+
+def readable(deck):
+    readable = []
+    for card in deck:
+        r = rank[card // 5]
+        s = suit[card % 5]
+        readable.append(f"{r} of {s}")
+    return readable
+
+hand = []
+for i in range(8):
+    hand.append(deck.pop(0))
+
+while len(deck) > 0 and len(hand) > 0:
+    try:
+        rh = readable(hand)
+        print(json.dumps({"hand": rh}))
+        action = json.loads(input("> "))
+        if action["action"] == "play":
+            token = action["token"]
+            cards = action["cards"]
+            if pow(token, d, n) != bytes_to_long(("play " + str(cards)).encode()):
+                print("Invalid token")
+                continue
+
+            # sorry because this is a demo version we dont really have a real game lmao
+            # just barely enough to show to clients
+            handtype = ["Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush", "Three of a Kind", "Two Pair", "One Pair", "High Card"]
+            handtype = random.choice(handtype)
+            if len(cards) == 5 and all(card == "FLAG of FLAG" for card in cards):
+                handtype = "FLAG"
+                
+            response = {
+                "handtype": handtype,
+                "score": random.randint(1, 1000000),   
+            }
+            if handtype == "FLAG":
+                response["flag"] = flag
+            print(json.dumps(response))
+
+            for card in cards:
+                hand.pop(readable(hand).index(card))
+            for i in range(min(len(cards), len(deck))):
+                hand.append(deck.pop(0))
+
+
+        if action["action"] == "discard":
+            cards = action["cards"]
+            token = action["token"]
+            if pow(token, d, n) != bytes_to_long(("discard " + str(cards)).encode()):
+                print("Invalid token")
+                continue
+            for card in cards:
+                hand.pop(readable(hand).index(card))
+            for i in range(len(cards)):
+                hand.append(deck.pop(0))
+        
+        if action["action"] == "get_token":
+            query = action["query"]
+            cards = query["cards"]
+            if len(cards) == 5 and all(card == "FLAG of FLAG" for card in cards):
+                print("Not allowed!")
+                continue
+
+            if any(card not in rh for card in cards):
+                print("Invalid cards")
+                continue
+            
+            if query["action"] == "play":
+                token = pow(bytes_to_long(("play " + str(cards)).encode()), e, n)
+                response = {
+                    "token": token,
+                }
+
+            if query["action"] == "discard":
+                token = pow(bytes_to_long(("discard " + str(cards)).encode()), e, n)
+                response = {
+                    "token": token,
+                }
+            print(json.dumps(response))
+    except:
+        print("An error occurred")
+        break
