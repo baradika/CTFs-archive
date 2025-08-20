@@ -1,0 +1,26 @@
+target = [
+    0xc2, -15, 0x5f, 0xac,
+    0x1b, 0x44, 0xa5, 0x21,
+    0x5e, 0xa4, -36, 0,
+    0xa9, 0x1d, 0x47, 0x98,
+    -60, 0x44, 0x95, 0x29,
+    0x5d, 0xc3, -22, 0x48,
+    0xb1, -44, 0x57, 0x53,
+    0x11
+]
+
+key = b"this-is-not-a-valid-license!!"
+
+flag = ""
+
+for i in range(len(target)):
+    k = key[i % 29]
+    if i % 3 == 0:
+        c = target[i] - k
+    elif i % 3 == 1:
+        c = target[i] + k
+    else:
+        c = target[i] ^ k
+    flag += chr(c & 0xFF)
+
+print(flag)

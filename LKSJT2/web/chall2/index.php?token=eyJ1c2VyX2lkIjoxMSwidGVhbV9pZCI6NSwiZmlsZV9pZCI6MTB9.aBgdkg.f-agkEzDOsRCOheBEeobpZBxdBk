@@ -1,0 +1,41 @@
+<?php
+
+$db = new SQLite3('users.db');
+
+function simple_waf($input) {
+    $blacklist = ['UNION', 'SELECT', 'OR', 'AND'];
+    foreach ($blacklist as $bad) {
+        if (strpos($input, $bad) !== false) {
+            die("OOPS!!! WAF detected malicious input!");
+        }
+    }
+    return $input;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    echo '<h1>Welcome to Salty Spitoon</h1>';
+    echo '<img src="login.jpg" alt="Login Image" style="width:300px; height:auto;"><br><br>';
+    echo '<form method="POST">';
+    echo 'Username: <input type="text" name="username"><br>';
+    echo 'Password: <input type="password" name="password"><br>';
+    echo '<button type="submit">Login</button>';
+    echo '</form>';
+    exit;
+}
+
+$username = $_POST['username'] ?? '';
+$password = $_POST['password'] ?? '';
+
+$username = simple_waf($username);
+$password = simple_waf($password);
+
+$query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+$result = $db->query($query);
+
+if ($result->fetchArray()) {
+    echo '<h1>Welcome!</h1>';
+    echo '<img src="dashboard.jpeg" alt="Dashboard Image" style="width:500px; height:auto;"><br>';
+} else {
+    echo "Access denied.";
+}
+?>

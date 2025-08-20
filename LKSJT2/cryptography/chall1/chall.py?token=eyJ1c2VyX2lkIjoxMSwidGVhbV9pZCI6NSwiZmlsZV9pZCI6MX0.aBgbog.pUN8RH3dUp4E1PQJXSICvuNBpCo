@@ -1,0 +1,15 @@
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad
+import string
+
+flag = b'LKSJT2{##########################}'
+key = b'###'
+iv = b'z'*16
+
+assert len(key) == 3
+assert all(c in (string.digits + string.ascii_lowercase) for c in key.decode())
+
+cipher = AES.new(pad(key,16), AES.MODE_CBC, iv)
+enc = cipher.encrypt(pad(flag,16))
+print(enc.hex())
+# fa8f90c719cebf259cd1ee92c9e0e39cf2244f3482004f6d408db979eee25870db4ce707b67550fdfa08197fcb766201

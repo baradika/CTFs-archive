@@ -1,0 +1,23 @@
+Foremost version 1.5.7 by Jesse Kornblum, Kris Kendall, and Nick Mikus
+Audit File
+
+Foremost started at Mon May  5 10:30:01 2025
+Invocation: foremost fixed_coconut.png 
+Output directory: /home/b4r/LKSJT2/forensic/chall2/output
+Configuration file: /etc/foremost.conf
+------------------------------------------------------------------
+File: fixed_coconut.png
+Start: Mon May  5 10:30:01 2025
+Length: 174 KB (178353 bytes)
+ 
+Num	 Name (bs=512)	       Size	 File Offset	 Comment 
+
+0:	00000000.png 	     174 KB 	          0 	  (1024 x 998)
+Finish: Mon May  5 10:30:01 2025
+
+1 FILES EXTRACTED
+	
+png:= 1
+------------------------------------------------------------------
+
+Foremost finished at Mon May  5 10:30:01 2025
